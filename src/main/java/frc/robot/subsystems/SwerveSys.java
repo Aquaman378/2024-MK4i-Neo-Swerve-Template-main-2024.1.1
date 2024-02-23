@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-//import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.MathUtil;
@@ -74,7 +74,7 @@ public class SwerveSys extends SubsystemBase {
         this.speedFactor = speedFactor;
     }
 
-    //private final Pigeon2 imu = new Pigeon2(CANDevices.imuId);
+    private final Pigeon2 imu = new Pigeon2(CANDevices.imuId);
 
     // Odometry for the robot, measured in meters for linear motion and radians for rotational motion
     // Takes in kinematics and robot angle for parameters
@@ -200,8 +200,8 @@ public class SwerveSys extends SubsystemBase {
     public ChassisSpeeds getChassisSpeeds() {
         double xVel = getAverageDriveVelocityMetersPerSec() * getDirectionOfTravel().getCos();
         double yVel = getAverageDriveVelocityMetersPerSec() * getDirectionOfTravel().getSin();
-        //double omega = Units.degreesToRadians(-imu.getRate());
-        double omega = Units.degreesToRadians(0);
+        double omega = Units.degreesToRadians(-imu.getRate());
+        //double omega = Units.degreesToRadians(0);
 
         return new ChassisSpeeds(xVel, yVel, omega);
     }
@@ -282,7 +282,7 @@ public class SwerveSys extends SubsystemBase {
     }
 
     public void setHeading(Rotation2d heading) {
-        //imu.setYaw(MathUtil.inputModulus(heading.getDegrees(), 0.0, 360.0));
+        imu.setYaw(MathUtil.inputModulus(heading.getDegrees(), 0.0, 360.0));
     }
 
     /**
@@ -394,8 +394,8 @@ public class SwerveSys extends SubsystemBase {
      */
     public Rotation2d getPitch() {
         // IMU is turned 90 degrees, so pitch and roll are flipped.
-        return Rotation2d.fromDegrees(0);
-        //return Rotation2d.fromDegrees(imu.getRoll().getValueAsDouble());
+        //return Rotation2d.fromDegrees(0);
+        return Rotation2d.fromDegrees(imu.getRoll().getValueAsDouble());
     }
 
     /**
@@ -405,15 +405,15 @@ public class SwerveSys extends SubsystemBase {
      */
     public Rotation2d getRollDegrees() {
         // IMU is turned 90 degrees, so pitch and roll are flipped.
-        //return Rotation2d.fromDegrees(imu.getPitch().getValueAsDouble());
-        return Rotation2d.fromDegrees(0);
+        return Rotation2d.fromDegrees(imu.getPitch().getValueAsDouble());
+        //return Rotation2d.fromDegrees(0);
     }
 
     /**
      * Sets the gyro heading to zero.
      */
     public void resetHeading() {
-        //imu.setYaw(0.0);
+        imu.setYaw(0.0);
     }
 
     /**

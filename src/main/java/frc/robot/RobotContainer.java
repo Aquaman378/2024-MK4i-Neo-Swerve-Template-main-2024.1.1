@@ -6,12 +6,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.auto.programs.ExampleAuto;
 import frc.robot.commands.drivetrain.ArcadeDriveCmd;
 import frc.robot.subsystems.ExampleSys;
 import frc.robot.subsystems.SwerveSys;
+
 
 public class RobotContainer {
     // Initialize subsystems.
@@ -25,6 +27,11 @@ public class RobotContainer {
     // Initialize auto selector.
     SendableChooser<Command> autoSelector = new SendableChooser<Command>();
 
+    private final PWMSparkMax hook = new PWMSparkMax(0);
+    private final PWMSparkMax intake = new PWMSparkMax(1);
+    private final PWMSparkMax shooterHold = new PWMSparkMax(2);
+    private final PWMSparkMax shooterGo = new PWMSparkMax(3);
+
     public RobotContainer() {
         SmartDashboard.putData("auto selector", autoSelector);
 
@@ -37,6 +44,7 @@ public class RobotContainer {
 
     public void configDriverBindings() {
 
+        System.out.println("BEFORE SWERVESYS");
         swerveSys.setDefaultCommand(new ArcadeDriveCmd(
             () -> MathUtil.applyDeadband(leftJoystick.getY(), ControllerConstants.joystickDeadband),
             () -> MathUtil.applyDeadband(leftJoystick.getX(), ControllerConstants.joystickDeadband),
@@ -46,11 +54,39 @@ public class RobotContainer {
             swerveSys
         )
         );
-
+        System.out.println("AFTER SWERVESYS");
+   
         if(rightJoystick.getTriggerPressed()) {
             Commands.runOnce(() -> swerveSys.resetHeading());
         }
+       
+        //HOOK Mechanism
+        if(rightJoystick.getRawButton(5)) {
+            System.out.println("RIGHT5");
+        }
+        if (leftJoystick.getRawButton(5)) {
+            System.out.println("Hook");
+          hook.set(1);
+        } else if (leftJoystick.getRawButton(4)){
+          hook.set(-1);
+        }else{
+          hook.set(0);
+        }
 
+      //INTAKE/SHOOTERHOLD Mechanism
+        if (leftJoystick.getRawButton(3)){
+            intake.set(1);
+            shooterHold.set(1);
+        } else if (leftJoystick.getRawButton(2)){
+            intake.set(-1);
+            shooterHold.set(-1);
+
+      //SHOOTERGO Mechanism
+        }else if (leftJoystick.getTrigger()){
+            shooterGo.set(1);
+        }
+
+      
         //driverController.axisGreaterThan(XboxController.Axis.kLeftTrigger.value, ControllerConstants.triggerPressedThreshhold)
         //    .whileTrue(Commands.runOnce(() -> swerveSys.lock()));
 

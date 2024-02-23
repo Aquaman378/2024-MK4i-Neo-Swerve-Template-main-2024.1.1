@@ -73,8 +73,8 @@ public class Constants {
          * The drive gear ratios for the different levels can be found from the chart at
          * swervedrivespecialties.com/products/mk41-swerve-module.
          */
-        // FIXME: This is the gear ratio for L3 modules.
-        public static final double driveMtrGearReduction = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
+        // FIXME: This is the gear ratio for L2 modules.
+        public static final double driveMtrGearReduction = (14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0);
 
         /**
          * The gear reduction from the steer motor to the wheel.
