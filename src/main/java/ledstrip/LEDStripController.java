@@ -6,14 +6,30 @@ package ledstrip;
  * The LED strip will display different colors based on the robot's state (autonomous, teleop, competition end).
  */
 public class LEDStripController {
-    private boolean autonomousMode = false;
-    private boolean teleopMode = false;
-    private boolean competitionEnd = false;
+    private static boolean autonomousMode = false;
+    public boolean isAutonomousMode() {
+        return autonomousMode;
+    }
+
+    public void setAutonomousMode(boolean autonomousMode) {
+        LEDStripController.autonomousMode = autonomousMode;
+    }
+
+    private static boolean teleopMode = false;
+    public boolean isTeleopMode() {
+        return teleopMode;
+    }
+
+    public void setTeleopMode(boolean teleopMode) {
+        LEDStripController.teleopMode = teleopMode;
+    }
+
+    private static boolean competitionEnd = false;
  
     /**
      * Simulates the robot being in autonomous mode by strobing shades of green and orange on the LED strip.
      */
-    public void autonomousMode() {
+    public static void autonomousMode() {
         autonomousMode = true;
         teleopMode = false;
         competitionEnd = false;
@@ -28,7 +44,7 @@ public class LEDStripController {
     /**
      * Simulates the robot being in teleop mode by strobing shades of blue and green on the LED strip.
      */
-    public void teleopMode() {
+    public static void teleopMode() {
         autonomousMode = false;
         teleopMode = true;
         competitionEnd = false;
@@ -43,7 +59,7 @@ public class LEDStripController {
     /**
      * Simulates the end of the competition by displaying green on the LED strip.
      */
-    public void competitionEnd() {
+    public static void competitionEnd() {
         autonomousMode = false;
         teleopMode = false;
         competitionEnd = true;
