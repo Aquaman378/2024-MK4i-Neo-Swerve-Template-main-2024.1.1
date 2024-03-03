@@ -37,12 +37,12 @@ public class RobotContainer {
 
         // Add programs to auto selector.
         autoSelector.setDefaultOption("Do Nothing", null);
-        autoSelector.addOption("Example Auto", new ExampleAuto(swerveSys, exampleSys));
+        autoSelector.addOption("Example Auto 1", new ExampleAuto(swerveSys, exampleSys));
 
         configDriverBindings();
     }
 
-    public void configDriverBindings() {
+     public void configDriverBindings() {
 
         System.out.println("BEFORE SWERVESYS");
         swerveSys.setDefaultCommand(new ArcadeDriveCmd(
