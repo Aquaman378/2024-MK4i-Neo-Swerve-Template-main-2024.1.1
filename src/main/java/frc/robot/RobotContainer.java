@@ -13,13 +13,14 @@ import frc.robot.commands.auto.programs.ExampleAuto;
 import frc.robot.commands.drivetrain.ArcadeDriveCmd;
 import frc.robot.subsystems.ExampleSys;
 import frc.robot.subsystems.SwerveSys;
+import frc.robot.subsystems.USBSerialCamera;
 
 
 public class RobotContainer {
     // Initialize subsystems.
     private final SwerveSys swerveSys = new SwerveSys();
     private final ExampleSys exampleSys = new ExampleSys();
-
+    private final USBSerialCamera usbSerialCamera = new USBSerialCamera();
     // Initialize joysticks.
     private final Joystick leftJoystick = new Joystick(0);
     private final Joystick rightJoystick = new Joystick(1);
@@ -42,7 +43,9 @@ public class RobotContainer {
         configDriverBindings();
     }
 
-     public void configDriverBindings() {
+     
+
+    public void configDriverBindings() {
 
         System.out.println("BEFORE SWERVESYS");
         swerveSys.setDefaultCommand(new ArcadeDriveCmd(

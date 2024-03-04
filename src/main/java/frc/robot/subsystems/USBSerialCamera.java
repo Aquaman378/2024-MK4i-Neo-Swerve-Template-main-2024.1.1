@@ -1,58 +1,33 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.SerialPort;
- 
+
 /**
- * This class represents a Camera connected via USB Serial 2.
+ *
+ * This class sets up a USB camera server for a RoboRIO using the 2024 WPILib imports.
  */
 public class USBSerialCamera {
-    private SerialPort cameraSerialPort;
-    public CameraServer {
 
-     public SerialPort getCameraSerialPort() {
-         return cameraSerialPort;
-     }
-
-     public void setCameraSerialPort(SerialPort cameraSerialPort) {
-        this.cameraSerialPort = cameraSerialPort;
-     }
-
-     /**
-     * Constructor to initialize the USB Serial Camera.
-     */
-     public USBSerialCamera() {
-        cameraSerialPort = new SerialPort(9600, SerialPort.Port.kUSB2);
-     }
- 
-     /**
-     * Method to capture an image from the USB Serial Camera.
-     *
-     * @return Returns the captured image as a byte array.
-     */
-     public byte[] captureImage() {
-        // Code to capture image from the camera
-        return new byte[0]; // Placeholder return
-     }
- 
     /**
-     * Method to process the captured image from the USB Serial Camera.
-     *
-     * @param image The captured image as a byte array.
-     * @return Returns the processed image as a byte array.
+     * Initializes and starts a USB camera server for a RoboRIO.
      */
-    public byte[] processImage(byte[] image) {
-        // Code to process the captured image
-        return new byte[0]; // Placeholder return
+    public static void setupCameraServer() {
+        // Create a new instance of CameraServer
+
+        // Set the resolution and frame rate for the camera (adjust as needed)
+        CameraServer.startAutomaticCapture("USB Camera", 0);
+
+        // Print a message indicating that the camera server has been set up successfully
+        System.out.println("USB Camera Server for RoboRIO has been set up.");
     }
- 
-     /**
-      * Method to display the processed image from the USB Serial Camera.
-      *
-      * @param processedImage The processed image as a byte array.
-       */
-     public void displayImage(byte[] processedImage) {
-         // Code to display the processed image
-     }
+
+    // Main method to demonstrate setting up the USB camera server
+    public static void main(String[] args) {
+        setupCameraServer();
+    }
+
+    @Override
+    public String toString() {
+        return "USBSerialCamera []";
     }
 }
